@@ -5,11 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/saludo")
-public class holaController {
+@RequestMapping("/vacation")
+public class VacationController {
 
-    @GetMapping("/hola")
-    public String saludo(){
-        return "Hola andres";
-    }
+
 }
