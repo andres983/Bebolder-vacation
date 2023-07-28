@@ -25,7 +25,7 @@ public class Vacaciones {
 
     @ManyToOne
     @JoinColumn(name = "idEmpleado", insertable = false, updatable = false)
-    private Empleado empleadoVacaciones;
+    private Empleado empleadoVacacion;
 
     @ManyToOne
     @JoinColumn(name = "idEstadoVacacion", insertable = false, updatable = false)
@@ -111,12 +111,12 @@ public class Vacaciones {
         this.aprobado = aprobado;
     }
 
-    public Empleado getEmpleado() {
-        return empleadoVacaciones;
+    public Empleado getEmpleadoVacacion() {
+        return empleadoVacacion;
     }
 
-    public void setEmpleado(Empleado empleado) {
-        this.empleadoVacaciones = empleado;
+    public void setEmpleadoVacacion(Empleado empleadoVacacion) {
+        this.empleadoVacacion = empleadoVacacion;
     }
 
     public EstadoVacacion getEstadoVacacion() {

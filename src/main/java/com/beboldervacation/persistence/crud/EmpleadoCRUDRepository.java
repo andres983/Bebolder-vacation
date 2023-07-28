@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface EmpleadoCRUDRepository extends CrudRepository<Empleado, Integer> {
 
-    Optional<List<Empleado>> findByDocumento(String documento);
+    Optional<List<Empleado>>findByDocumento(String documento);
 
 }

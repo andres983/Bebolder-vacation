@@ -1,10 +1,13 @@
 package com.beboldervacation.domain;
 
+import com.beboldervacation.persistence.entity.Empleado;
+import com.beboldervacation.persistence.entity.EstadoVacacion;
+
 import java.util.Date;
 
 public class Vacations {
     private Integer id;
-    private Integer EmployeeId;
+    private Integer employeeId;
     private Date applicationDate;
     private Integer daysRequested;
     private Integer daysFavor;
@@ -13,6 +16,8 @@ public class Vacations {
     private Date withdrawalDate;
     private Integer userVerifyId;
     private boolean approved;
+    private Empleado employeeVacation;
+    private EstadoVacacion stateVacation;
 
     public Integer getId() {
         return id;
@@ -23,11 +28,11 @@ public class Vacations {
     }
 
     public Integer getEmployeeId() {
-        return EmployeeId;
+        return employeeId;
     }
 
     public void setEmployeeId(Integer employeeId) {
-        EmployeeId = employeeId;
+        this.employeeId = employeeId;
     }
 
     public Date getApplicationDate() {
@@ -92,5 +97,21 @@ public class Vacations {
 
     public void setApproved(boolean approved) {
         this.approved = approved;
+    }
+
+    public Empleado getEmployeeVacation() {
+        return employeeVacation;
+    }
+
+    public void setEmployeeVacation(Empleado employeeVacation) {
+        this.employeeVacation = employeeVacation;
+    }
+
+    public EstadoVacacion getStateVacation() {
+        return stateVacation;
+    }
+
+    public void setStateVacation(EstadoVacacion stateVacation) {
+        this.stateVacation = stateVacation;
     }
 }

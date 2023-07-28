@@ -44,10 +44,10 @@ public class Empleado {
     @JoinColumn(name = "idEstado", insertable = false, updatable = false)
     private EstadoEmpleado estadoEmpleado;
 
-    @OneToMany(mappedBy = "empleadoVacaciones")
+    @OneToMany(mappedBy = "empleadoVacacion")
     private List<Vacaciones> vacaciones;
     @OneToMany(mappedBy = "empleado")
-    private List<Notificacion> notificacions;
+    private List<Notificacion> notificaciones;
 
     public Integer getIdEmpleado() {
         return idEmpleado;
@@ -199,6 +199,22 @@ public class Empleado {
 
     public void setEstadoEmpleado(EstadoEmpleado estadoEmpleado) {
         this.estadoEmpleado = estadoEmpleado;
+    }
+
+    public List<Vacaciones> getVacaciones() {
+        return vacaciones;
+    }
+
+    public void setVacaciones(List<Vacaciones> vacaciones) {
+        this.vacaciones = vacaciones;
+    }
+
+    public List<Notificacion> getNotificaciones() {
+        return notificaciones;
+    }
+
+    public void setNotificaciones(List<Notificacion> notificaciones) {
+        this.notificaciones = notificaciones;
     }
 }
 

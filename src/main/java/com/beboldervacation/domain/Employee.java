@@ -24,8 +24,7 @@ public class Employee {
     private Integer typeChargeId;
     private Integer statusId;
     private String immediateSupervisor;
-    private List<Vacations> vacations;
-    private List<Notification> notifications;
+
 
     public Integer getEmployeeId() {
         return employeeId;
@@ -147,19 +146,5 @@ public class Employee {
         this.immediateSupervisor = immediateSupervisor;
     }
 
-    public List<Vacations> getVacations() {
-        return vacations;
-    }
 
-    public void setVacations(List<Vacations> vacations) {
-        this.vacations = vacations;
-    }
-
-    public List<Notification> getNotifications() {
-        return notifications;
-    }
-
-    public void setNotifications(List<Notification> notifications) {
-        this.notifications = notifications;
-    }
 }

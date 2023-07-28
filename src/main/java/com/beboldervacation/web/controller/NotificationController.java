@@ -5,5 +5,5 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/email")
-public class EmailController {
+public class NotificationController {
 }
