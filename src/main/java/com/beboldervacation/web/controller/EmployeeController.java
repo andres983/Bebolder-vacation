@@ -4,8 +4,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("Employed")
-public class EmployedController {
+@RequestMapping("Employee")
+public class EmployeeController {
 
 
 }

@@ -9,11 +9,11 @@ CREATE TABLE  EMPLEADO (
 	"direccion" VARCHAR(100) NOT NULL,
 	"correoElectronico" VARCHAR(80) NOT NULL,
 	"fechaIngreso" Date NOT NULL,
-    "fechaRetiro" Date,
+    "fechaRetiro" Date NULL,
     "idTipoContrato" INT NOT NULL,
     "idTipoCargo" INT NOT NULL,
     "idEstadoEmpleado" INT NOT NULL,
-    "supervisorInmediato" VARCHAR(60) NOT NULL,
+    "supervisorInmediato" VARCHAR(60) NULL,
   	PRIMARY KEY ("idEmpleado"),
 	  	CONSTRAINT "fk_TIPO_CONTRATO"
 	    FOREIGN KEY ("idTipoContrato")
@@ -39,42 +39,47 @@ CREATE TABLE  EMPLEADO (
 
 CREATE TABLE  TIPO_CONTRATO (
 	"id" SERIAL NOT NULL,
-	"nombre" VARCHAR(100) NULL,
+	"nombre" VARCHAR(100) NOT NULL,
 	"descripcion" VARCHAR(150) NULL,
 	PRIMARY KEY ("id"));
 
 CREATE TABLE  TIPO_DOCUMENTO (
 	"id" SERIAL NOT NULL,
-	"nombre" VARCHAR(100) NULL,
+	"nombre" VARCHAR(100) NOT NULL,
 	"descripcion" VARCHAR(150) NULL,
 	PRIMARY KEY ("id"));
 
 CREATE TABLE  TIPO_CARGO (
 	"id" SERIAL NOT NULL,
-	"nombre" VARCHAR(100) NULL,
+	"nombre" VARCHAR(100) NOT NULL,
 	"descripcion" VARCHAR(150) NULL,
 	PRIMARY KEY ("id"));
 
 CREATE TABLE  ESTADO_EMPLEADO (
 	"id" SERIAL NOT NULL,
-	"nombre" VARCHAR(100) NULL,
+	"nombre" VARCHAR(100) NOT NULL,
 	"descripcion" VARCHAR(150) NULL,
 	PRIMARY KEY ("id"));
 
 
 CREATE TABLE  ESTADO_VACACION (
 	"id" SERIAL NOT NULL,
-	"nombre" VARCHAR(100) NULL,
+	"nombre" VARCHAR(100) NOT NULL,
 	"descripcion" VARCHAR(150) NULL,
 	PRIMARY KEY ("id"));
 
-CREATE TABLE  EMAIL (
+CREATE TABLE  NOTIFICACION (
 	"id" SERIAL NOT NULL,
-	"idUsuario" INT NOT NULL,
-	"destinatarios" VARCHAR(400) NULL,
-	"asunto" VARCHAR(400) NULL,
-	"mensaje" VARCHAR(400) NULL,
-	PRIMARY KEY ("id"));
+	"idEmpleado" INT NOT NULL,
+	"destinatarios" VARCHAR(400) NOT NULL,
+	"asunto" VARCHAR(200) NOT NULL,
+	"mensaje" VARCHAR(400) NOT NULL,
+	PRIMARY KEY ("id"),
+	CONSTRAINT "fk_EMPLEADO_NOTIFICACION"
+           FOREIGN KEY ("idUsuario")
+           REFERENCES EMPLEADO ("idEmpleado")
+           ON DELETE NO ACTION
+           ON UPDATE NO action);
 
 CREATE TABLE  VACACIONES (
 	"id" SERIAL NOT NULL,
@@ -84,9 +89,9 @@ CREATE TABLE  VACACIONES (
     "diasAFavor" INT NOT NULL,
     "idEstadoVacacion" INT NOT NULL,
     "numeroSolicitud" INT NOT NULL,
-    "fechaReintrego" Date,
-    "idUsuarioVerifico" INT,
-    "aprobado" BOOLEAN,
+    "fechaReintrego" Date NULL,
+    "idUsuarioVerifico" INT NULL,
+    "aprobado" BOOLEAN NULL,
   	PRIMARY KEY ("id"),
 	  	CONSTRAINT "fk_EMPLEADO"
 		    FOREIGN KEY ("idEmpleado")
