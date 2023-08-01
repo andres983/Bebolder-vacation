@@ -1,10 +1,7 @@
 package com.beboldervacation.persistence.entity;
 
-import lombok.Data;
-
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "vacaciones")
@@ -16,7 +13,11 @@ public class Vacaciones {
     @Column(name = "id_empleado")
     private Integer idEmpleado;
     @Column(name = "fecha_solicitud")
-    private Date fechaSolicitud;
+    private LocalDate fechaSolicitud;
+    @Column(name = "fecha_inicial")
+    private LocalDate fechaInicial;
+    @Column(name = "fecha_reintegro")
+    private LocalDate fechaReintrego;
     @Column(name = "dias_solicitados")
     private Integer diasSolicitados;
     @Column(name = "dias_a_favor")
@@ -25,8 +26,6 @@ public class Vacaciones {
     private Integer idEstadoVacacion;
     @Column(name = "numero_solicitud")
     private Integer numeroSolicitud;
-    @Column(name = "fecha_reintrego")
-    private Date fechaReintrego;
     @Column(name = "id_usuario_verifico")
     private Integer idUsuarioVerifico;
     private boolean aprobado;
@@ -55,12 +54,28 @@ public class Vacaciones {
         this.idEmpleado = idEmpleado;
     }
 
-    public Date getFechaSolicitud() {
+    public LocalDate getFechaSolicitud() {
         return fechaSolicitud;
     }
 
-    public void setFechaSolicitud(Date fechaSolicitud) {
+    public void setFechaSolicitud(LocalDate fechaSolicitud) {
         this.fechaSolicitud = fechaSolicitud;
+    }
+
+    public LocalDate getFechaInicial() {
+        return fechaInicial;
+    }
+
+    public void setFechaInicial(LocalDate fechaInicial) {
+        this.fechaInicial = fechaInicial;
+    }
+
+    public LocalDate getFechaReintrego() {
+        return fechaReintrego;
+    }
+
+    public void setFechaReintrego(LocalDate fechaReintrego) {
+        this.fechaReintrego = fechaReintrego;
     }
 
     public Integer getDiasSolicitados() {
@@ -93,14 +108,6 @@ public class Vacaciones {
 
     public void setNumeroSolicitud(Integer numeroSolicitud) {
         this.numeroSolicitud = numeroSolicitud;
-    }
-
-    public Date getFechaReintrego() {
-        return fechaReintrego;
-    }
-
-    public void setFechaReintrego(Date fechaReintrego) {
-        this.fechaReintrego = fechaReintrego;
     }
 
     public Integer getIdUsuarioVerifico() {

@@ -4,6 +4,9 @@ import com.beboldervacation.domain.Employee;
 import com.beboldervacation.domain.Vacations;
 import com.beboldervacation.domain.repository.VacationRepository;
 import com.beboldervacation.domain.service.EmployeeService;
+import com.beboldervacation.domain.util.BusinessDaysUtil;
+import com.beboldervacation.domain.util.EmployeeUtil;
+import com.beboldervacation.domain.util.VacationEstates;
 import com.beboldervacation.persistence.crud.VacacionCRUDRepository;
 import com.beboldervacation.persistence.entity.Vacaciones;
 import com.beboldervacation.persistence.mapper.VacationMapper;
@@ -35,69 +38,45 @@ public class VacacionRepository implements VacationRepository {
     public Vacations save(Vacations vacations) throws ParseException {
 
         Vacations vacationData = new Vacations();
-
-        System.out.println("employeeId " + vacations.getEmployeeId());
-        System.out.println("applicationDate " + vacations.getApplicationDate());
-        System.out.println("daysFavor " + vacations.getDaysFavor());
-        System.out.println("daysRequested " + vacations.getDaysRequested());
-        System.out.println("stateVacationId " + vacations.getStateVacationId());
-        System.out.println("requestNumber " + vacations.getRequestNumber());
-        System.out.println("withdrawalDate " + vacations.getWithdrawalDate());
-        System.out.println("userVerifyId " + vacations.getUserVerifyId());
-        System.out.println("approved " + vacations.isApproved());
+        Employee employee = new Employee();
+        EmployeeUtil employeeUtil = new EmployeeUtil(employeeService);
 
         try {
-            Employee employees = getEmployeeById(vacations.getEmployeeId());
-            vacationData = getDataInfoVacation(employees.getEmployeeId());
 
+            employee = employeeUtil.getEmployeeById(vacations.getEmployeeId());
 
+            if (employee.getEmployeeId() != null) {
 
+                vacationData = getDataInfoVacation(employee.getEmployeeId());
 
-        } catch (Exception exception) {
+                if (vacationData.getId() != null) {
+                    System.out.println("vacationData >>>>> " + vacationData.getId());
 
-        }
+                    // TO DO ****************
 
-        return null;
-    }
+                } else {
+                    //Primer registro de solicitud de vacaciones **
+                    Vacaciones vacacion = vacationMapper.toVacacion(vacations);
 
-    public Employee getEmployeeById(Integer id) {
+                    Integer diasHabilesSolicitados = BusinessDaysUtil.calcularDiasHabiles(vacacion.getFechaInicial().toString(), vacacion.getFechaReintrego().toString());
 
-        Employee employeeData = new Employee();
+                    vacacion.setIdEmpleado(employee.getEmployeeId());
+                    vacacion.setDiasAFavor(0);
+                    vacacion.setIdEstadoVacacion(VacationEstates.SOLICITADA.getValor());
+                    vacacion.setNumeroSolicitud(0);
+                    vacacion.setDiasSolicitados(diasHabilesSolicitados);
+                    vacacion.setIdUsuarioVerifico(null);
+                    vacacion.setAprobado(false);
 
-        try {
-            Optional<List<Employee>> employees = employeeService.getByIdEmployee(id);
-            if (employees.isPresent()) {
-
-                List<Employee> employeeList = employees.get();
-
-                for (Employee employee : employeeList) {
-                    employeeData.setEmployeeId(employee.getEmployeeId());
-                    employeeData.setUser(employee.getUser());
-                    employeeData.setDocumentTypeId(employee.getDocumentTypeId());
-                    employeeData.setDocument(employee.getDocument());
-                    employeeData.setNames(employee.getNames());
-                    employeeData.setSurnames(employee.getSurnames());
-                    employeeData.setPhone(employee.getPhone());
-                    employeeData.setAddres(employee.getAddres());
-                    employeeData.setEmail(employee.getEmail());
-                    employeeData.setAdmissionDate(employee.getAdmissionDate());
-                    employeeData.setWithdrawalDate(employee.getWithdrawalDate());
-                    employeeData.setContractTypeId(employee.getContractTypeId());
-                    employeeData.setTypeChargeId(employee.getTypeChargeId());
-                    employeeData.setStatusId(employee.getStatusId());
-                    employeeData.setImmediateSupervisor(employee.getImmediateSupervisor());
+                    return vacationMapper.toVacation(vacacionCRUDRepository.save(vacacion));
                 }
-
-            } else {
-                throw new Exception("No se encontro empleado por el id solicitado");
             }
-
-            return employeeData;
 
         } catch (Exception exception) {
             exception.printStackTrace();
-            return null;
         }
+
+        return null;
     }
 
     public Vacations getDataInfoVacation(Integer id) {
@@ -105,7 +84,7 @@ public class VacacionRepository implements VacationRepository {
         Vacations vacationData = new Vacations();
 
         try {
-            Optional<List<Vacations>> vacations = this.getByIdEmpleado(id);
+            Optional<List<Vacations>> vacations = getByIdEmpleado(id);
 
             if (vacations.isPresent()) {
 
@@ -121,10 +100,8 @@ public class VacacionRepository implements VacationRepository {
                     vacationData.setRequestNumber(vacation.getRequestNumber());
                     vacationData.setWithdrawalDate(vacation.getWithdrawalDate());
                     vacationData.setUserVerifyId(vacation.getUserVerifyId());
-                    vacationData.setApproved(vacation.isApproved());
-
+                    vacationData.setApproved(vacation.getApproved());
                 }
-
             } else {
                 throw new Exception("No se encontro datos de vacacion por el usuario solicitado");
             }
@@ -135,4 +112,5 @@ public class VacacionRepository implements VacationRepository {
             return null;
         }
     }
+
 }

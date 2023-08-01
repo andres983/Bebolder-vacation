@@ -11,10 +11,11 @@ public class Vacations {
     private Integer employeeId;
     private LocalDate applicationDate;
     private Integer daysRequested;
+    private LocalDate initialDate;
+    private LocalDate withdrawalDate;
     private Integer daysFavor;
     private Integer stateVacationId;
     private Integer requestNumber;
-    private LocalDate withdrawalDate;
     private Integer userVerifyId;
     private Boolean approved;
     private Empleado employeeVacation;
@@ -52,6 +53,22 @@ public class Vacations {
         this.daysRequested = daysRequested;
     }
 
+    public LocalDate getInitialDate() {
+        return initialDate;
+    }
+
+    public void setInitialDate(LocalDate initialDate) {
+        this.initialDate = initialDate;
+    }
+
+    public LocalDate getWithdrawalDate() {
+        return withdrawalDate;
+    }
+
+    public void setWithdrawalDate(LocalDate withdrawalDate) {
+        this.withdrawalDate = withdrawalDate;
+    }
+
     public Integer getDaysFavor() {
         return daysFavor;
     }
@@ -76,14 +93,6 @@ public class Vacations {
         this.requestNumber = requestNumber;
     }
 
-    public LocalDate getWithdrawalDate() {
-        return withdrawalDate;
-    }
-
-    public void setWithdrawalDate(LocalDate withdrawalDate) {
-        this.withdrawalDate = withdrawalDate;
-    }
-
     public Integer getUserVerifyId() {
         return userVerifyId;
     }
@@ -92,7 +101,7 @@ public class Vacations {
         this.userVerifyId = userVerifyId;
     }
 
-    public Boolean isApproved() {
+    public Boolean getApproved() {
         return approved;
     }
 
