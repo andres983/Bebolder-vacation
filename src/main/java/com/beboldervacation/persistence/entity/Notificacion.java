@@ -9,6 +9,7 @@ public class Notificacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "id_empleado")
     private Integer idEmpleado;
     private String destinatarios;
     private String asunto;
@@ -16,7 +17,7 @@ public class Notificacion {
 
 
     @ManyToOne
-    @JoinColumn(name = "idEmpleado", insertable = false, updatable = false)
+    @JoinColumn(name = "id_empleado", insertable = false, updatable = false)
     private Empleado empleado;
 
     public Integer getId() {

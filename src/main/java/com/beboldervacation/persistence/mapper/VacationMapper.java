@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface VacationMapper {
 
@@ -25,10 +27,12 @@ public interface VacationMapper {
             @Mapping(source = "estadoVacacion", target = "stateVacation"),
 
     })
-    Vacations toVacations(Vacaciones vacaciones);
+    Vacations toVacation(Vacaciones vacaciones);
+
+    List<Vacations> toVacationList(List<Vacaciones> vacaciones);
 
     @InheritInverseConfiguration
-    Vacaciones toVacaciones(Vacations vacations);
+    Vacaciones toVacacion(Vacations vacations);
 
 
 }

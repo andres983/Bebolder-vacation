@@ -11,5 +11,6 @@ import java.util.Optional;
 public interface EmpleadoCRUDRepository extends CrudRepository<Empleado, Integer> {
 
     Optional<List<Empleado>>findByDocumento(String documento);
+    Optional<List<Empleado>>findByIdEmpleado(Integer idEmpleado);
 
 }

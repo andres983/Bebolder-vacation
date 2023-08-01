@@ -18,13 +18,12 @@ public class Employee {
     private String phone;
     private String addres;
     private String email;
-    private Date admissionDate;
-    private Date withdrawalDate;
+    private String admissionDate;
+    private String withdrawalDate;
     private Integer contractTypeId;
     private Integer typeChargeId;
     private Integer statusId;
     private String immediateSupervisor;
-
 
     public Integer getEmployeeId() {
         return employeeId;
@@ -98,19 +97,19 @@ public class Employee {
         this.email = email;
     }
 
-    public Date getAdmissionDate() {
+    public String getAdmissionDate() {
         return admissionDate;
     }
 
-    public void setAdmissionDate(Date admissionDate) {
+    public void setAdmissionDate(String admissionDate) {
         this.admissionDate = admissionDate;
     }
 
-    public Date getWithdrawalDate() {
+    public String getWithdrawalDate() {
         return withdrawalDate;
     }
 
-    public void setWithdrawalDate(Date withdrawalDate) {
+    public void setWithdrawalDate(String withdrawalDate) {
         this.withdrawalDate = withdrawalDate;
     }
 
@@ -145,6 +144,4 @@ public class Employee {
     public void setImmediateSupervisor(String immediateSupervisor) {
         this.immediateSupervisor = immediateSupervisor;
     }
-
-
 }

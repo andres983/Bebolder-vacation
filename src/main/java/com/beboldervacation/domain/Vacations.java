@@ -3,19 +3,20 @@ package com.beboldervacation.domain;
 import com.beboldervacation.persistence.entity.Empleado;
 import com.beboldervacation.persistence.entity.EstadoVacacion;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Vacations {
     private Integer id;
     private Integer employeeId;
-    private Date applicationDate;
+    private LocalDate applicationDate;
     private Integer daysRequested;
     private Integer daysFavor;
     private Integer stateVacationId;
     private Integer requestNumber;
-    private Date withdrawalDate;
+    private LocalDate withdrawalDate;
     private Integer userVerifyId;
-    private boolean approved;
+    private Boolean approved;
     private Empleado employeeVacation;
     private EstadoVacacion stateVacation;
 
@@ -35,11 +36,11 @@ public class Vacations {
         this.employeeId = employeeId;
     }
 
-    public Date getApplicationDate() {
+    public LocalDate getApplicationDate() {
         return applicationDate;
     }
 
-    public void setApplicationDate(Date applicationDate) {
+    public void setApplicationDate(LocalDate applicationDate) {
         this.applicationDate = applicationDate;
     }
 
@@ -75,11 +76,11 @@ public class Vacations {
         this.requestNumber = requestNumber;
     }
 
-    public Date getWithdrawalDate() {
+    public LocalDate getWithdrawalDate() {
         return withdrawalDate;
     }
 
-    public void setWithdrawalDate(Date withdrawalDate) {
+    public void setWithdrawalDate(LocalDate withdrawalDate) {
         this.withdrawalDate = withdrawalDate;
     }
 
@@ -91,11 +92,11 @@ public class Vacations {
         this.userVerifyId = userVerifyId;
     }
 
-    public boolean isApproved() {
+    public Boolean isApproved() {
         return approved;
     }
 
-    public void setApproved(boolean approved) {
+    public void setApproved(Boolean approved) {
         this.approved = approved;
     }
 

@@ -1,37 +1,37 @@
 CREATE TABLE  EMPLEADO (
-	"idEmpleado" SERIAL NOT NULL,
+	"id_empleado" SERIAL NOT NULL,
 	"usuario" VARCHAR(60) NOT NULL,
-	"idTipoDocumento" INT NOT NULL,
+	"id_tipo_documento" INT NOT NULL,
 	"documento" VARCHAR(15) NOT NULL,
 	"nombres" VARCHAR(100) NOT NULL,
 	"apellidos" VARCHAR(100) NOT NULL,
 	"telefono" VARCHAR(15) NOT NULL,
 	"direccion" VARCHAR(100) NOT NULL,
-	"correoElectronico" VARCHAR(80) NOT NULL,
-	"fechaIngreso" Date NOT NULL,
-    "fechaRetiro" Date NULL,
-    "idTipoContrato" INT NOT NULL,
-    "idTipoCargo" INT NOT NULL,
-    "idEstadoEmpleado" INT NOT NULL,
-    "supervisorInmediato" VARCHAR(60) NULL,
-  	PRIMARY KEY ("idEmpleado"),
+	"correo_electronico" VARCHAR(80) NOT NULL,
+	"fecha_ingreso" Date NOT NULL,
+    "fecha_retiro" Date NULL,
+    "id_tipo_contrato" INT NOT NULL,
+    "id_tipo_cargo" INT NOT NULL,
+    "id_estado_empleado" INT NOT NULL,
+    "supervisor_inmediato" VARCHAR(60) NULL,
+  	PRIMARY KEY ("id_empleado"),
 	  	CONSTRAINT "fk_TIPO_CONTRATO"
-	    FOREIGN KEY ("idTipoContrato")
+	    FOREIGN KEY ("id_tipo_contrato")
 	    REFERENCES TIPO_CONTRATO ("id")
 	    ON DELETE NO ACTION
 	    ON UPDATE NO ACTION,
     CONSTRAINT "fk_TIPO_DOCUMENTO"
-	    FOREIGN KEY ("idTipoDocumento")
+	    FOREIGN KEY ("id_tipo_documento")
 	    REFERENCES TIPO_DOCUMENTO ("id")
 	    ON DELETE NO ACTION
 	    ON UPDATE NO action,
     CONSTRAINT "fk_TIPO_CARGO"
-	    FOREIGN KEY ("idTipoCargo")
+	    FOREIGN KEY ("id_tipo_cargo")
 	    REFERENCES TIPO_CARGO ("id")
 	    ON DELETE NO ACTION
 	    ON UPDATE NO ACTION,
     CONSTRAINT "fk_ESTADO_EMPLEADO"
-	    FOREIGN KEY ("idEstadoEmpleado")
+	    FOREIGN KEY ("id_estado_empleado")
 	    REFERENCES ESTADO_EMPLEADO ("id")
 	    ON DELETE NO ACTION
 	    ON UPDATE NO ACTION);
@@ -70,42 +70,42 @@ CREATE TABLE  ESTADO_VACACION (
 
 CREATE TABLE  NOTIFICACION (
 	"id" SERIAL NOT NULL,
-	"idEmpleado" INT NOT NULL,
+	"id_empleado" INT NOT NULL,
 	"destinatarios" VARCHAR(400) NOT NULL,
 	"asunto" VARCHAR(200) NOT NULL,
 	"mensaje" VARCHAR(400) NOT NULL,
 	PRIMARY KEY ("id"),
 	CONSTRAINT "fk_EMPLEADO_NOTIFICACION"
-           FOREIGN KEY ("idUsuario")
-           REFERENCES EMPLEADO ("idEmpleado")
+           FOREIGN KEY ("id_empleado")
+           REFERENCES EMPLEADO ("id_empleado")
            ON DELETE NO ACTION
            ON UPDATE NO action);
 
 CREATE TABLE  VACACIONES (
 	"id" SERIAL NOT NULL,
-	"idEmpleado" INT NOT NULL,
-	"fechaSolicitud" Date NOT NULL,
-    "diasSolicitados" INT NOT NULL,
-    "diasAFavor" INT NOT NULL,
-    "idEstadoVacacion" INT NOT NULL,
-    "numeroSolicitud" INT NOT NULL,
-    "fechaReintrego" Date NULL,
-    "idUsuarioVerifico" INT NULL,
+	"id_empleado" INT NOT NULL,
+	"fecha_solicitud" Date NOT NULL,
+    "dias_solicitados" INT NOT NULL,
+    "dias_a_favor" INT NOT NULL,
+    "id_estado_vacacion" INT NOT NULL,
+    "numero_solicitud" INT NOT NULL,
+    "fecha_reintrego" Date NULL,
+    "id_usuario_verifico" INT NULL,
     "aprobado" BOOLEAN NULL,
   	PRIMARY KEY ("id"),
 	  	CONSTRAINT "fk_EMPLEADO"
-		    FOREIGN KEY ("idEmpleado")
-		    REFERENCES EMPLEADO ("idEmpleado")
+		    FOREIGN KEY ("id_empleado")
+		    REFERENCES EMPLEADO ("id_empleado")
 		    ON DELETE NO ACTION
 		    ON UPDATE NO ACTION,
 	    CONSTRAINT "fk_ESTADO_VACACION"
-		    FOREIGN KEY ("idEstadoVacacion")
+		    FOREIGN KEY ("id_estado_vacacion")
 		    REFERENCES ESTADO_VACACION ("id")
 		    ON DELETE NO ACTION
 		    ON UPDATE NO action,
 		CONSTRAINT "fk_EMPLEADO_VERIFICO"
-		    FOREIGN KEY ("idUsuarioVerifico")
-		    REFERENCES EMPLEADO ("idEmpleado")
+		    FOREIGN KEY ("id_usuario_verifico")
+		    REFERENCES EMPLEADO ("id_empleado")
 		    ON DELETE NO ACTION
 		    ON UPDATE NO action);
 
@@ -136,13 +136,17 @@ INSERT INTO TIPO_CARGO VALUES (9, 'Psicologo', '');
 INSERT INTO TIPO_CARGO VALUES (10, 'Lider tecnico', '');
 INSERT INTO TIPO_CARGO VALUES (11, 'Aprendiz', '');
 INSERT INTO TIPO_CARGO VALUES (12, 'Semillero', '');
+INSERT INTO TIPO_CARGO VALUES (13, 'Consultor Desarrollador', '');
 
 -- Inserción de Estado empleado
 INSERT INTO ESTADO_EMPLEADO VALUES (1, 'Prueba', '');
 INSERT INTO ESTADO_EMPLEADO VALUES (2, 'Vinculado', '');
+INSERT INTO ESTADO_EMPLEADO VALUES (3, 'Despedido', '');
 
 -- Inserción de Estado vacacion
 INSERT INTO ESTADO_VACACION VALUES (1, 'Parcial', '');
 INSERT INTO ESTADO_VACACION VALUES (2, 'Completa', '');
+INSERT INTO ESTADO_VACACION VALUES (3, 'Solicitada', '');
+INSERT INTO ESTADO_VACACION VALUES (4, 'Rechazada', '');
 
 --https://start.spring.io/#!type=gradle-project&language=java&platformVersion=2.7.14&packaging=jar&jvmVersion=11&groupId=com.bebolder&artifactId=bebolder-vacation&name=bebolder-vacation&description=Proyecto%20para%20solicitud%20de%20vacaciones%20en%20Be%20Bolder&packageName=com.bebolder-vacation&dependencies=web

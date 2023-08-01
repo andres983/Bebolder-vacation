@@ -3,6 +3,7 @@ package com.beboldervacation.persistence.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -12,36 +13,46 @@ import java.util.List;
 public class Empleado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_empleado")
     private Integer idEmpleado;
     private String usuario;
+    @Column(name = "id_tipo_documento")
     private Integer idTipoDocumento;
     private String documento;
     private String nombres;
     private String apellidos;
     private String telefono;
     private String direccion;
+    @Column(name = "correo_electronico")
     private String correoElectronico;
-    private Date fechaIngreso;
+    @Column(name = "fecha_ingreso")
+    private LocalDate fechaIngreso;
+    @Column(name = "fecha_retiro")
     private Date fechaRetiro;
+    @Column(name = "id_tipo_contrato")
     private Integer idTipoContrato;
+    @Column(name = "id_tipo_cargo")
     private Integer idTipoCargo;
+    @Column(name = "id_estado_empleado")
     private Integer idEstado;
+
+    @Column(name = "supervisor_inmediato")
     private String supervisorInmediato;
 
     @OneToOne
-    @JoinColumn(name = "idTipoDocumento", insertable = false, updatable = false)
+    @JoinColumn(name = "id_tipo_documento", insertable = false, updatable = false)
     private TipoDocumento tipoDocumento;
 
     @ManyToOne
-    @JoinColumn(name = "idTipoCargo", insertable = false, updatable = false)
+    @JoinColumn(name = "id_tipo_cargo", insertable = false, updatable = false)
     private TipoCargo tipoCargo;
 
     @OneToOne
-    @JoinColumn(name = "idTipoContrato", insertable = false, updatable = false)
+    @JoinColumn(name = "id_tipo_contrato", insertable = false, updatable = false)
     private TipoContrato tipoContrato;
 
     @OneToOne
-    @JoinColumn(name = "idEstado", insertable = false, updatable = false)
+    @JoinColumn(name = "id_estado_empleado", insertable = false, updatable = false)
     private EstadoEmpleado estadoEmpleado;
 
     @OneToMany(mappedBy = "empleadoVacacion")
@@ -121,11 +132,11 @@ public class Empleado {
         this.correoElectronico = correoElectronico;
     }
 
-    public Date getFechaIngreso() {
+    public LocalDate getFechaIngreso() {
         return fechaIngreso;
     }
 
-    public void setFechaIngreso(Date fechaIngreso) {
+    public void setFechaIngreso(LocalDate fechaIngreso) {
         this.fechaIngreso = fechaIngreso;
     }
 

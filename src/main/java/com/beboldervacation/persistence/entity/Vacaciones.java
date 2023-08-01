@@ -13,22 +13,30 @@ public class Vacaciones {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "id_empleado")
     private Integer idEmpleado;
+    @Column(name = "fecha_solicitud")
     private Date fechaSolicitud;
+    @Column(name = "dias_solicitados")
     private Integer diasSolicitados;
+    @Column(name = "dias_a_favor")
     private Integer diasAFavor;
+    @Column(name = "id_estado_vacacion")
     private Integer idEstadoVacacion;
+    @Column(name = "numero_solicitud")
     private Integer numeroSolicitud;
+    @Column(name = "fecha_reintrego")
     private Date fechaReintrego;
+    @Column(name = "id_usuario_verifico")
     private Integer idUsuarioVerifico;
     private boolean aprobado;
 
     @ManyToOne
-    @JoinColumn(name = "idEmpleado", insertable = false, updatable = false)
+    @JoinColumn(name = "id_empleado", insertable = false, updatable = false)
     private Empleado empleadoVacacion;
 
     @ManyToOne
-    @JoinColumn(name = "idEstadoVacacion", insertable = false, updatable = false)
+    @JoinColumn(name = "id_estado_vacacion", insertable = false, updatable = false)
     private EstadoVacacion estadoVacacion;
 
     public Integer getId() {
