@@ -1,5 +1,6 @@
 package com.beboldervacation.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ public class TipoCargo {
 
 
     @OneToMany(mappedBy = "tipoCargo")
+    @JsonIgnore
     private List<Empleado> empleados;
 
     public Integer getId() {

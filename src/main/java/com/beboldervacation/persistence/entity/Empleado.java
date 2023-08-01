@@ -1,5 +1,6 @@
 package com.beboldervacation.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -40,24 +41,30 @@ public class Empleado {
     private String supervisorInmediato;
 
     @OneToOne
+    @JsonIgnore
     @JoinColumn(name = "id_tipo_documento", insertable = false, updatable = false)
     private TipoDocumento tipoDocumento;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "id_tipo_cargo", insertable = false, updatable = false)
     private TipoCargo tipoCargo;
 
     @OneToOne
+    @JsonIgnore
     @JoinColumn(name = "id_tipo_contrato", insertable = false, updatable = false)
     private TipoContrato tipoContrato;
 
     @OneToOne
+    @JsonIgnore
     @JoinColumn(name = "id_estado_empleado", insertable = false, updatable = false)
     private EstadoEmpleado estadoEmpleado;
 
     @OneToMany(mappedBy = "empleadoVacacion")
+    @JsonIgnore
     private List<Vacaciones> vacaciones;
     @OneToMany(mappedBy = "empleado")
+    @JsonIgnore
     private List<Notificacion> notificaciones;
 
     public Integer getIdEmpleado() {

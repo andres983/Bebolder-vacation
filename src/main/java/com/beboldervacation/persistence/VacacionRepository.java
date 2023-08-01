@@ -30,8 +30,13 @@ public class VacacionRepository implements VacationRepository {
 
     @Override
     public Optional<List<Vacations>> getByIdEmpleado(Integer idEmpleado) {
+
+        System.out.println("@@@@@@@@@@@@@@@ " + idEmpleado);
         Optional<List<Vacaciones>> vacaciones = vacacionCRUDRepository.findByIdEmpleado(idEmpleado);
-        return vacaciones.map(vacacion -> vacationMapper.toVacationList(vacacion));
+
+        System.out.println(" *********** " + vacaciones);
+
+        return vacaciones.map(vacation -> vacationMapper.toVacationList(vacation));
     }
 
     @Override
