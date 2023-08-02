@@ -1,18 +1,24 @@
 package com.beboldervacation.persistence;
 
 import com.beboldervacation.domain.Employee;
+import com.beboldervacation.domain.Notification;
 import com.beboldervacation.domain.Vacations;
 import com.beboldervacation.domain.repository.VacationRepository;
 import com.beboldervacation.domain.service.EmployeeService;
 import com.beboldervacation.domain.util.BusinessDaysUtil;
 import com.beboldervacation.domain.util.EmployeeUtil;
+import com.beboldervacation.domain.util.NotificationEstates;
 import com.beboldervacation.domain.util.VacationEstates;
+import com.beboldervacation.persistence.crud.NotificacionCRUDRepository;
 import com.beboldervacation.persistence.crud.VacacionCRUDRepository;
+import com.beboldervacation.persistence.entity.Notificacion;
 import com.beboldervacation.persistence.entity.Vacaciones;
+import com.beboldervacation.persistence.mapper.NotificationMapper;
 import com.beboldervacation.persistence.mapper.VacationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
@@ -25,24 +31,27 @@ public class VacacionRepository implements VacationRepository {
     @Autowired
     private VacationMapper vacationMapper;
     @Autowired
+    private NotificationMapper notificationMapper;
+    @Autowired
+    private NotificacionCRUDRepository notificacionCRUDRepository;
+    @Autowired
     private EmployeeService employeeService;
 
 
     @Override
     public Optional<List<Vacations>> getByIdEmpleado(Integer idEmpleado) {
-
-        System.out.println("@@@@@@@@@@@@@@@ " + idEmpleado);
         Optional<List<Vacaciones>> vacaciones = vacacionCRUDRepository.findByIdEmpleado(idEmpleado);
-
-        System.out.println(" *********** " + vacaciones);
-
         return vacaciones.map(vacation -> vacationMapper.toVacationList(vacation));
     }
 
+    @Transactional
     @Override
     public Vacations save(Vacations vacations) throws ParseException {
 
         Vacations vacationData = new Vacations();
+        Vacations vacationSave = new Vacations();
+        Notificacion notificacion = new Notificacion();
+        Notification notificationSave = new Notification();
         Employee employee = new Employee();
         EmployeeUtil employeeUtil = new EmployeeUtil(employeeService);
 
@@ -73,7 +82,25 @@ public class VacacionRepository implements VacationRepository {
                     vacacion.setIdUsuarioVerifico(null);
                     vacacion.setAprobado(false);
 
-                    return vacationMapper.toVacation(vacacionCRUDRepository.save(vacacion));
+                    vacationSave = vacationMapper.toVacation(vacacionCRUDRepository.save(vacacion));
+
+                    if (vacationSave.getId() != null) {
+
+                        notificacion.setDestinatarios("jorge.hugo@bebolder.co;estefania.gonzalez@bebolder.co");
+                        notificacion.setAsunto("Solicitud de vacaciones de " + employee.getNames() + " " + employee.getSurnames());
+                        notificacion.setMensaje("Se solicita vacaciones desde fecha " + vacacion.getFechaInicial() + " hasta la fecha " + vacacion.getFechaReintrego() + " " +
+                                "para un total de dias de " + diasHabilesSolicitados);
+                        notificacion.setIdTipoNotificacion(NotificationEstates.EMAIL.getValor());
+
+                        notificationSave = notificationMapper.toNotification(notificacionCRUDRepository.save(notificacion));
+
+                        vacacion.setId(vacationSave.getId());
+                        vacacion.setIdNotificacionSolicitud(notificationSave.getId());
+
+                        vacationSave = vacationMapper.toVacation(vacacionCRUDRepository.save(vacacion));
+                    }
+
+                    return vacationSave;
                 }
             }
 

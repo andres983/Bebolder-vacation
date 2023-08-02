@@ -31,14 +31,30 @@ public class Vacaciones {
     @Column(name = "id_usuario_verifico")
     private Integer idUsuarioVerifico;
     private boolean aprobado;
+    @Column(name = "id_notificacion_solicitud")
+    private Integer idNotificacionSolicitud;
+    @Column(name = "id_notificacion_aprobacion_rechazo")
+    private Integer idNotificacionAprobacionRechazo;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "id_empleado", insertable = false, updatable = false)
     private Empleado empleadoVacacion;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "id_estado_vacacion", insertable = false, updatable = false)
     private EstadoVacacion estadoVacacion;
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "id_notificacion_solicitud", insertable = false, updatable = false)
+    private Notificacion notificacion;
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "id_notificacion_aprobacion_rechazo", insertable = false, updatable = false)
+    private Notificacion notificacionAR;
 
     public Integer getId() {
         return id;
@@ -128,6 +144,22 @@ public class Vacaciones {
         this.aprobado = aprobado;
     }
 
+    public Integer getIdNotificacionSolicitud() {
+        return idNotificacionSolicitud;
+    }
+
+    public void setIdNotificacionSolicitud(Integer idNotificacionSolicitud) {
+        this.idNotificacionSolicitud = idNotificacionSolicitud;
+    }
+
+    public Integer getIdNotificacionAprobacionRechazo() {
+        return idNotificacionAprobacionRechazo;
+    }
+
+    public void setIdNotificacionAprobacionRechazo(Integer idNotificacionAprobacionRechazo) {
+        this.idNotificacionAprobacionRechazo = idNotificacionAprobacionRechazo;
+    }
+
     public Empleado getEmpleadoVacacion() {
         return empleadoVacacion;
     }
@@ -142,5 +174,21 @@ public class Vacaciones {
 
     public void setEstadoVacacion(EstadoVacacion estadoVacacion) {
         this.estadoVacacion = estadoVacacion;
+    }
+
+    public Notificacion getNotificacion() {
+        return notificacion;
+    }
+
+    public void setNotificacion(Notificacion notificacion) {
+        this.notificacion = notificacion;
+    }
+
+    public Notificacion getNotificacionAR() {
+        return notificacionAR;
+    }
+
+    public void setNotificacionAR(Notificacion notificacionAR) {
+        this.notificacionAR = notificacionAR;
     }
 }

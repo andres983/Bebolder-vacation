@@ -63,9 +63,7 @@ public class Empleado {
     @OneToMany(mappedBy = "empleadoVacacion")
     @JsonIgnore
     private List<Vacaciones> vacaciones;
-    @OneToMany(mappedBy = "empleado")
-    @JsonIgnore
-    private List<Notificacion> notificaciones;
+
 
     public Integer getIdEmpleado() {
         return idEmpleado;
@@ -227,13 +225,7 @@ public class Empleado {
         this.vacaciones = vacaciones;
     }
 
-    public List<Notificacion> getNotificaciones() {
-        return notificaciones;
-    }
 
-    public void setNotificaciones(List<Notificacion> notificaciones) {
-        this.notificaciones = notificaciones;
-    }
 }
 
 

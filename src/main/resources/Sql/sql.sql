@@ -68,18 +68,24 @@ CREATE TABLE  ESTADO_VACACION (
 	"descripcion" VARCHAR(150) NULL,
 	PRIMARY KEY ("id"));
 
+CREATE TABLE  TIPO_NOTIFICACION (
+    "id" SERIAL NOT NULL,
+    "nombre" VARCHAR(100) NOT NULL,
+    "descripcion" VARCHAR(150) NULL,
+    PRIMARY KEY ("id"));
+
 CREATE TABLE  NOTIFICACION (
 	"id" SERIAL NOT NULL,
-	"id_empleado" INT NOT NULL,
 	"destinatarios" VARCHAR(400) NOT NULL,
 	"asunto" VARCHAR(200) NOT NULL,
 	"mensaje" VARCHAR(400) NOT NULL,
-	PRIMARY KEY ("id"),
-	CONSTRAINT "fk_EMPLEADO_NOTIFICACION"
-           FOREIGN KEY ("id_empleado")
-           REFERENCES EMPLEADO ("id_empleado")
-           ON DELETE NO ACTION
-           ON UPDATE NO action);
+	 "id_tipo_notificacion" INT NOT NULL,
+	PRIMARY KEY ("id")
+	CONSTRAINT "fk_TIPO_NOTIFICACION"
+    		    FOREIGN KEY ("id_tipo_notificacion")
+    		    REFERENCES TIPO_NOTIFICACION ("id")
+    		    ON DELETE NO ACTION
+    		    ON UPDATE NO ACTION,);
 
 CREATE TABLE  VACACIONES (
 	"id" SERIAL NOT NULL,
@@ -93,6 +99,8 @@ CREATE TABLE  VACACIONES (
     "numero_solicitud" INT NOT NULL,
     "id_usuario_verifico" INT NULL,
     "aprobado" BOOLEAN NULL,
+    "id_notificacion_solicitud" INT NULL,
+    "id_notificacion__aprobacion_rechazo" INT NULL,
   	PRIMARY KEY ("id"),
 	  	CONSTRAINT "fk_EMPLEADO"
 		    FOREIGN KEY ("id_empleado")
@@ -108,7 +116,17 @@ CREATE TABLE  VACACIONES (
 		    FOREIGN KEY ("id_usuario_verifico")
 		    REFERENCES EMPLEADO ("id_empleado")
 		    ON DELETE NO ACTION
-		    ON UPDATE NO action);
+		    ON UPDATE NO action,
+		CONSTRAINT "fk_NOTIFICACION_SOLICITUD"
+            FOREIGN KEY ("id_notificacion_solicitud")
+            REFERENCES NOTIFICACION ("id")
+            ON DELETE NO ACTION
+            ON UPDATE NO action,
+        CONSTRAINT "fk_NOTIFICACION_APROBACION_RECHAZO"
+            FOREIGN KEY ("id_notificacion__aprobacion_rechazo")
+            REFERENCES NOTIFICACION ("id")
+            ON DELETE NO ACTION
+            ON UPDATE NO action);
 
 
 -- Inserción de Tipos de contrato
@@ -149,5 +167,10 @@ INSERT INTO ESTADO_VACACION VALUES (1, 'Parcial', '');
 INSERT INTO ESTADO_VACACION VALUES (2, 'Completa', '');
 INSERT INTO ESTADO_VACACION VALUES (3, 'Solicitada', '');
 INSERT INTO ESTADO_VACACION VALUES (4, 'Rechazada', '');
+
+-- Inserción de Tipos de NOTIFICACION
+INSERT INTO TIPO_NOTIFICACION VALUES (1, 'email', '');
+INSERT INTO TIPO_NOTIFICACION VALUES (2, 'sms', '');
+INSERT INTO TIPO_NOTIFICACION VALUES (3, 'whatsapp', '');
 
 --https://start.spring.io/#!type=gradle-project&language=java&platformVersion=2.7.14&packaging=jar&jvmVersion=11&groupId=com.bebolder&artifactId=bebolder-vacation&name=bebolder-vacation&description=Proyecto%20para%20solicitud%20de%20vacaciones%20en%20Be%20Bolder&packageName=com.bebolder-vacation&dependencies=web

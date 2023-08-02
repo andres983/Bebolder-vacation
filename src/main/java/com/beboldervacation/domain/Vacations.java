@@ -3,8 +3,8 @@ package com.beboldervacation.domain;
 import com.beboldervacation.persistence.entity.Empleado;
 import com.beboldervacation.persistence.entity.EstadoVacacion;
 
+import javax.persistence.Column;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Vacations {
     private Integer id;
@@ -20,6 +20,8 @@ public class Vacations {
     private Boolean approved;
     private Empleado employeeVacation;
     private EstadoVacacion stateVacation;
+    private Integer requestNotificationId;
+    private Integer notificationApprovalRejectionId;
 
     public Integer getId() {
         return id;
@@ -123,5 +125,21 @@ public class Vacations {
 
     public void setStateVacation(EstadoVacacion stateVacation) {
         this.stateVacation = stateVacation;
+    }
+
+    public Integer getRequestNotificationId() {
+        return requestNotificationId;
+    }
+
+    public void setRequestNotificationId(Integer requestNotificationId) {
+        this.requestNotificationId = requestNotificationId;
+    }
+
+    public Integer getNotificationApprovalRejectionId() {
+        return notificationApprovalRejectionId;
+    }
+
+    public void setNotificationApprovalRejectionId(Integer notificationApprovalRejectionId) {
+        this.notificationApprovalRejectionId = notificationApprovalRejectionId;
     }
 }

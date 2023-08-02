@@ -36,7 +36,6 @@ public interface EmployeeMapper {
     @InheritInverseConfiguration
     @Mappings({
     @Mapping(target = "vacaciones", ignore = true),
-            @Mapping(target = "notificaciones", ignore = true),
             @Mapping(target = "tipoDocumento", ignore = true),
             @Mapping(target = "tipoCargo", ignore = true),
             @Mapping(target = "tipoContrato", ignore = true),

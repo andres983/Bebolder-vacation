@@ -1,11 +1,13 @@
 package com.beboldervacation.domain;
 
+import java.util.List;
+
 public class Notification {
     private Integer id;
-    private Integer EmployeeId;
-    private String Recipients;
+    private String recipients;
     private String affair;
     private String message;
+    private Integer notificationTypeId;
 
     public Integer getId() {
         return id;
@@ -15,20 +17,12 @@ public class Notification {
         this.id = id;
     }
 
-    public Integer getEmployeeId() {
-        return EmployeeId;
-    }
-
-    public void setEmployeeId(Integer employeeId) {
-        EmployeeId = employeeId;
-    }
-
     public String getRecipients() {
-        return Recipients;
+        return recipients;
     }
 
     public void setRecipients(String recipients) {
-        Recipients = recipients;
+        this.recipients = recipients;
     }
 
     public String getAffair() {
@@ -45,5 +39,13 @@ public class Notification {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Integer getNotificationTypeId() {
+        return notificationTypeId;
+    }
+
+    public void setNotificationTypeId(Integer notificationTypeId) {
+        this.notificationTypeId = notificationTypeId;
     }
 }

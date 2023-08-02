@@ -24,8 +24,8 @@ public interface VacationMapper {
             @Mapping(source = "numeroSolicitud", target = "requestNumber"),
             @Mapping(source = "idUsuarioVerifico", target = "userVerifyId"),
             @Mapping(source = "aprobado", target = "approved"),
-            @Mapping(source = "empleadoVacacion", target = "employeeVacation"),
-            @Mapping(source = "estadoVacacion", target = "stateVacation"),
+            @Mapping(source = "idNotificacionSolicitud", target = "requestNotificationId"),
+            @Mapping(source = "idNotificacionAprobacionRechazo", target = "notificationApprovalRejectionId"),
 
     })
     Vacations toVacation(Vacaciones vacaciones);
