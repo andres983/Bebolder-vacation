@@ -37,7 +37,7 @@ public class EmpleadoRepository implements EmployeeRepository {
 
     @Override
     public Employee save(Employee employee) throws ParseException {
-        LocalDate fechaIngreso = UtilDate.convertStringToDate(employee.getAdmissionDate());
+        LocalDate fechaIngreso = UtilDate.convertStringToLocalDate(employee.getAdmissionDate());
         Empleado empleado = employeeMapper.toEmpleado(employee);
         empleado.setFechaIngreso(fechaIngreso);
         return employeeMapper.toEmployee(empleadoCRUDRepository.save(empleado));

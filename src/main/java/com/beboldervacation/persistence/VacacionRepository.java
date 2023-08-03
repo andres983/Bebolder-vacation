@@ -9,6 +9,9 @@ import com.beboldervacation.domain.util.BusinessDaysUtil;
 import com.beboldervacation.domain.util.EmployeeUtil;
 import com.beboldervacation.domain.util.NotificationEstates;
 import com.beboldervacation.domain.util.VacationEstates;
+import com.beboldervacation.persistence.Util.Constantes;
+import com.beboldervacation.persistence.Util.Destinatarios;
+import com.beboldervacation.persistence.Util.UtilDate;
 import com.beboldervacation.persistence.crud.NotificacionCRUDRepository;
 import com.beboldervacation.persistence.crud.VacacionCRUDRepository;
 import com.beboldervacation.persistence.entity.Notificacion;
@@ -75,9 +78,10 @@ public class VacacionRepository implements VacationRepository {
                     Integer diasHabilesSolicitados = BusinessDaysUtil.calcularDiasHabiles(vacacion.getFechaInicial().toString(), vacacion.getFechaReintrego().toString());
 
                     vacacion.setIdEmpleado(employee.getEmployeeId());
-                    vacacion.setDiasAFavor(0);
+                    vacacion.setFechaSolicitud(UtilDate.currentDate());
+                    vacacion.setDiasAFavor(Constantes.VALUE_CERO.getValor());
                     vacacion.setIdEstadoVacacion(VacationEstates.SOLICITADA.getValor());
-                    vacacion.setNumeroSolicitud(0);
+                    vacacion.setNumeroSolicitud(Constantes.VALUE_CERO.getValor());
                     vacacion.setDiasSolicitados(diasHabilesSolicitados);
                     vacacion.setIdUsuarioVerifico(null);
                     vacacion.setAprobado(false);
@@ -86,7 +90,7 @@ public class VacacionRepository implements VacationRepository {
 
                     if (vacationSave.getId() != null) {
 
-                        notificacion.setDestinatarios("jorge.hugo@bebolder.co;estefania.gonzalez@bebolder.co");
+                        notificacion.setDestinatarios(Destinatarios.SOLICITUD_VACACIONES.getValor());
                         notificacion.setAsunto("Solicitud de vacaciones de " + employee.getNames() + " " + employee.getSurnames());
                         notificacion.setMensaje("Se solicita vacaciones desde fecha " + vacacion.getFechaInicial() + " hasta la fecha " + vacacion.getFechaReintrego() + " " +
                                 "para un total de dias de " + diasHabilesSolicitados);
